@@ -1,0 +1,20 @@
+function a (fn, delay, isDebounce){
+  let timer 
+  let prev = new Date()
+  return () => {
+    // 防抖
+    if(isDebounce) {
+      timer && clearTimeout(timer)
+      timer = setTimeout(()=>{
+        fn.apply(this,arguments)
+      },delay)
+    } else {
+      // 节流
+      let now = new Date()
+      if(now - prev > delay) {
+        fn.apply(this,arguments)
+        prev = new Date()
+      }
+    }
+  }
+}
